@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'secret' => env('JWT_SECRET', 'I5RWGULOkiNHj4mp5avRru7nmOVlKkbQ'),
+    'secret' => env('JWT_SECRET', '9PhUY8kYyEwnY6a2r27f44vSAfZLYo9x'),
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +133,8 @@ return [
         |
         */
 
-        'user' => 'Tymon\JWTAuth\Providers\User\EloquentUserAdapter',
+        //'user' => 'Tymon\JWTAuth\Providers\LaravelServiceProvider::class',
+        'user' => Tymon\JWTAuth\Providers\User\EloquentUserAdapter::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -143,8 +144,8 @@ return [
         | Specify the provider that is used to create and decode the tokens.
         |
         */
-
-        'jwt' => 'Tymon\JWTAuth\Providers\JWT\Namshi',
+		'jwt' => Tymon\JWTAuth\Providers\JWT\NamshiAdapter::class,
+        //'jwt' => 'Tymon\JWTAuth\Providers\JWT\Namshi::class',
 
         /*
         |--------------------------------------------------------------------------
@@ -155,7 +156,8 @@ return [
         |
         */
 
-        'auth' => 'Tymon\JWTAuth\Providers\Auth\Illuminate',
+        //'auth' => 'Tymon\JWTAuth\Providers\Auth\Illuminate',
+		'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -165,8 +167,8 @@ return [
         | Specify the provider that is used to store tokens in the blacklist
         |
         */
-
-        'storage' => 'Tymon\JWTAuth\Providers\Storage\Illuminate',
+		'storage' => Tymon\JWTAuth\Providers\Storage\IlluminateCacheAdapter::class,
+        //'storage' => 'Tymon\JWTAuth\Providers\Storage\Illuminate',
 
     ],
 
