@@ -41,6 +41,7 @@ class AuthController extends Controller
 			}
 			
 		}catch (JWTAuthException $e){
+			return 'sss';
 			return response()->json(['failed_to_create_token'], 500);
 		}
 		
