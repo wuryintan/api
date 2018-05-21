@@ -9,6 +9,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class VerifyJWTToken
 {
+	public $response;
+	public $user;
+	public $token;
+	public $refreshedToken;
     /**
      * Handle an incoming request.
      *
@@ -18,15 +22,47 @@ class VerifyJWTToken
      */
     public function handle($request, Closure $next)
     {
-		//var_dump($request->header('Authorization'));die;
-		try{
-			$user = JWTAuth::toUser($request->header('Authorization'));
-		}catch (JWTException $e) {
-			if($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-				return response()->json(['token_expired'], $e->getStatusCode());
-			}else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+		var_dump('JWTAuth::getToken()');die;
+		try
+		{
+			$this->token = $request->header('Authorization');
+			$this->user = JWTAuth::toUser($this->token);
+		}
+		catch (JWTException $e) 
+		{
+			if($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) 
+			{
 				return response()->json(['token_invalid'], $e->getStatusCode());
-			}else{
+			}
+			else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) 
+			{
+				//$token = JWTAuth::getToken();
+				//var_dump($this->token);die;
+				if(!$this->user)
+				{
+					$this->response = [
+						'status' => 'Token Expired',
+						'newToken' => JWTAuth::refresh($this->token)
+					];
+					return response()->json($this->response);
+				}
+				//var_dump(JWTAuth::refresh($this->token));die;
+				try
+				{
+					//$refreshedToken = JWTAuth::refresh($token);
+					
+				}
+				catch (JWTException $e)
+				{
+					//var_dump($this->response);die;
+					//return $this->response->errorInternal('Not able to refresh Token');
+					return response()->json(['Not able to refresh Token'], $e->getStatusCode());
+					
+				}
+				return response()->json(['error'=>'token_expired','token'=>$refreshedToken]);
+			}
+			else
+			{
 				return response()->json(['error'=>'Token is Required']);
 			}
 		}
