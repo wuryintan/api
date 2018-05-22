@@ -22,7 +22,12 @@ class VerifyJWTToken
      */
     public function handle($request, Closure $next)
     {
+<<<<<<< HEAD
 		var_dump('JWTAuth::getToken()');die;
+=======
+		//var_dump(JWTAuth::refresh($this->token));die;
+		//var_dump(JWTAuth::getToken());die;
+>>>>>>> 5870e6446bee4580717d35684a5ed76f9ab4eed6
 		try
 		{
 			$this->token = $request->header('Authorization');
