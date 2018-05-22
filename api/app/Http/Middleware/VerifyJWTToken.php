@@ -22,7 +22,12 @@ class VerifyJWTToken
      */
     public function handle($request, Closure $next)
     {
+<<<<<<< HEAD
 		var_dump('JWTAuth::getToken()');die;
+=======
+		//var_dump(JWTAuth::refresh($this->token));die;
+		//var_dump(JWTAuth::getToken());die;
+>>>>>>> salat
 		try
 		{
 			$this->token = $request->header('Authorization');
